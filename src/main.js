@@ -18,6 +18,8 @@ document.addEventListener('scroll', () => {
   }
 });
 
+/* ---------------------------------------------------- */
+
 // Home 섹션을 아래로 스크롤 시 투명하게 처리함
 // y가 0일때는 opacity 1 , y가 홈화면 높이에 완전히 닿았을때는 opacity 0
 // 홈화면 높이 구하기
@@ -26,7 +28,36 @@ const home = document.querySelector('.home__container');
 const homeHeight = home.offsetHeight;
 // const homeHeight = home.getBoundingClientRect().height;
 
+// 인라인 스타일을 이용해서 직접적으로 opacity 설정
+// 왜냐면, 스크롤되는 순간마다 정밀하게 opacity값을 설정해야했기 때문에
 document.addEventListener('scroll', () => {
   console.log(1 - window.scrollY / homeHeight);
   home.style.opacity = 1 - window.scrollY / homeHeight;
 });
+
+/* ---------------------------------------------------- */
+
+const arrowUp = document.querySelector('.arrow-up');
+
+// Arrow up버튼을 아래로 스크롤 시 투명하게 처리함
+// 홈이 절반정도 내려가면 위 버튼이 생기고 다시 스크롤 올리면 버튼 사라짐
+
+// 요소에 class를 추가하고 제거하면서 스타일링 변화 (좀 더 많은 걸 해야하면 class로)
+/* document.addEventListener('scroll', () => {
+  if (window.scrollY > homeHeight / 2) {
+    arrowUp.classList.add('arrow-up__on');
+  } else {
+    arrowUp.classList.remove('arrow-up__on');
+  }
+}); */
+
+// 인라인 스타일을 이용해서 직접적으로 opacity 설정
+document.addEventListener('scroll', () => {
+  if (window.scrollY > homeHeight / 2) {
+    arrowUp.style.opacity = 1;
+  } else {
+    arrowUp.style.opacity = 0;
+  }
+});
+
+// 정밀하게 지정하지 않아도 되어 클래스 지정, 인라인 둘 다 가능
