@@ -17,3 +17,16 @@ document.addEventListener('scroll', () => {
     header.classList.remove('header--dark');
   }
 });
+
+// Home 섹션을 아래로 스크롤 시 투명하게 처리함
+// y가 0일때는 opacity 1 , y가 홈화면 높이에 완전히 닿았을때는 opacity 0
+// 홈화면 높이 구하기
+
+const home = document.querySelector('.home__container');
+const homeHeight = home.offsetHeight;
+// const homeHeight = home.getBoundingClientRect().height;
+
+document.addEventListener('scroll', () => {
+  console.log(1 - window.scrollY / homeHeight);
+  home.style.opacity = 1 - window.scrollY / homeHeight;
+});
