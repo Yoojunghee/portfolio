@@ -1,3 +1,5 @@
+'use strict';
+
 // ✅ Header에 페이지 아래로 스크롤 시 다크 스타일링 적용
 
 // getBoundingClientRect() 대신 offsetHeight 사용 가능. 단 offsetHeight은 소수점까지는 높이를 알려주지 않음
