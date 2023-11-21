@@ -34,10 +34,14 @@ const navItems = sectionIds.map((id) =>
 // 현재 섹션들이 보여지고 있는지 아닌지를 간직 할 수 있는 배열
 // 기본적으로 모든 요소들은 보여지고 있지 않다 라고 false라고 설정 해줌
 const visibleSections = sectionIds.map(() => false);
+let activeNavItem = navItems[0];
 
 //------------------------------------------------
 
-const options = {};
+const options = {
+  rootMargin: '-20% 0px 0px 0px',
+  threshold: [0, 0.98], // 처음 진입했을 때 나갔을 때 호출 받음
+};
 const observer = new IntersectionObserver(observerCallback, options);
 
 //------------------------------------------------
@@ -62,7 +66,7 @@ function observerCallback(entries) {
     selectLastOne =
       index === sectionIds.length - 1 && // -1 를 해주는 이유 : 5번이 마지막 섹션
       entry.isIntersecting &&
-      entry.intersectionRatio >= 0.99;
+      entry.intersectionRatio >= 0.95;
   });
   // console.log(visibleSections);
   // console.log('무조건 라스트 섹션!!', selectLastOne);
@@ -70,11 +74,20 @@ function observerCallback(entries) {
   const navIndex = selectLastOne
     ? sectionIds.length - 1
     : findFirstIntersecting(visibleSections);
-  console.log(sectionIds[navIndex]);
+  selectNavItem(navIndex);
 }
 
 // 다수의 섹션이 동시에 보여진다면, 가장 첫 번째 섹션을 선택
 function findFirstIntersecting(intersections) {
   const index = intersections.indexOf(true);
   return index >= 0 ? index : 0; // ~ 라면 index 아니면 기본값 0 지정
+}
+
+// navItem을 선택하는 부분 별도의 함수로 만듦
+function selectNavItem(index) {
+  const navItem = navItems[index];
+  if (!navItem) return;
+  activeNavItem.classList.remove('active');
+  activeNavItem = navItem;
+  activeNavItem.classList.add('active');
 }
