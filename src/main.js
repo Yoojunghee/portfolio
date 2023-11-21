@@ -33,7 +33,7 @@ const homeHeight = home.offsetHeight;
 // 인라인 스타일을 이용해서 직접적으로 opacity 설정
 // 왜냐면, 스크롤되는 순간마다 정밀하게 opacity값을 설정해야했기 때문에
 document.addEventListener('scroll', () => {
-  console.log(1 - window.scrollY / homeHeight);
+  // console.log(1 - window.scrollY / homeHeight);
   home.style.opacity = 1 - window.scrollY / homeHeight;
 });
 
